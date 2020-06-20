@@ -33,7 +33,13 @@ class Post(models.Model):
             'slug': self.slug
         })
 
-    # Adding mehto to count how many comments there are
+    # When we are specifying as prperty,
+    # we can call it easily in the htm file
+    @property
+    def comments(self):
+        return self.comment_set.all()
+
+    # Adding mehtod to count how many comments are there
     @property
     def get_comment_count(self):
         return self.comment_set.all().count()
