@@ -2,8 +2,27 @@
 
 {% block content %}
 <div class="container">
-{% for object in object_list %}
-    {{ object }}
-{% endfor %}
+    <div class="row">
+    {% for object in object_list %}
+    <div class="col-4">
+    <a href="{{ object.get_absolute_url }}">
+        <div class="card" style="width: 18rem;">
+            <img src="{{ object.tumbnail.url }}" class="card-img-top" alt="Post's image">
+            <div class="card-body">
+                <h5 class="card-title">{{ object.title }}</h5>
+                <!--truncatechars: limit of characters to display-->
+                <p class="card-text">{{ object.content|truncatechars:40 }}</p>
+                <hr>
+                <p>
+                    <span><i class="fa fa-comments"></i>{{ object.get_comment_count }}</span>
+                    <span><i class="fa fa-eye"></i>{{ object.get_view_count }}</span>
+                    <span><i class="fa fa-thumbs-up"></i>{{ object.get_like_count }}</span>
+                </p>
+            </div>
+        </div>
+    </a>
+    </div>
+    {% endfor %}
+    </div>
 </div
 {% endblock content %}

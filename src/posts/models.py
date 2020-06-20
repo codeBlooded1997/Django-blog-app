@@ -1,6 +1,7 @@
 from django.db import models
 # Gives access to all needed fields like username, password, email
 from django.contrib.auth.models import AbstractUser
+from django.shortcuts import reverse
 
 
 class User(AbstractUser):
@@ -22,6 +23,11 @@ class Post(models.Model):
     def __str__(self):
         return self.title
 
+    def get_absolute_url(self):
+        return reverse("detail", kwargs={
+            'slug': self.slug
+        })
+
 
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -34,6 +40,11 @@ class Comment(models.Model):
     def __str__(self):
         return self.user.username
 
+    # Adding mehto to count how many comments there are
+    @property
+    def get_comment_count(self):
+        return self.comment_set.all().count()
+
 
 class PostView(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -43,6 +54,11 @@ class PostView(models.Model):
     def __str__(self):
         return self.user.username
 
+    # Adding mehto to count how many comments there are
+    @property
+    def get_view_count(self):
+        return self.postview_set.all().count()
+
 
 class Like(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -50,3 +66,8 @@ class Like(models.Model):
 
     def __str__(self):
         return self.user.username
+
+    # Adding mehto to count how many comments there are
+    @property
+    def get_like_count(self):
+        return self.like_set.all().count()
