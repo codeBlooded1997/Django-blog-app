@@ -28,6 +28,24 @@ class Post(models.Model):
             'slug': self.slug
         })
 
+    def get_like_url(self):
+        return reverse("like", kwargs={
+            'slug': self.slug
+        })
+
+    # Adding mehto to count how many comments there are
+    @property
+    def get_comment_count(self):
+        return self.comment_set.all().count()
+
+    @property
+    def get_view_count(self):
+        return self.postview_set.all().count()
+
+    @property
+    def get_like_count(self):
+        return self.like_set.all().count()
+
 
 class Comment(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -40,11 +58,6 @@ class Comment(models.Model):
     def __str__(self):
         return self.user.username
 
-    # Adding mehto to count how many comments there are
-    @property
-    def get_comment_count(self):
-        return self.comment_set.all().count()
-
 
 class PostView(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -54,11 +67,6 @@ class PostView(models.Model):
     def __str__(self):
         return self.user.username
 
-    # Adding mehto to count how many comments there are
-    @property
-    def get_view_count(self):
-        return self.postview_set.all().count()
-
 
 class Like(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
@@ -66,8 +74,3 @@ class Like(models.Model):
 
     def __str__(self):
         return self.user.username
-
-    # Adding mehto to count how many comments there are
-    @property
-    def get_like_count(self):
-        return self.like_set.all().count()

@@ -1,9 +1,30 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="container">
-    <h1>This is the post detail view</h1>
-    {{ object.title }}
+    <div class="row">
+        <div class="col-4 offset-4">
+            <div class="card" style='padding: 10px;'>
+                <h1 style='padding: 10px;'>{{ object.title|title }}</h1>
+                <img src="{{ object.tumbnail.url }}" class="card-img-top" alt="Post's image">
+                <hr />
 
-</div
+                <div>
+                    <span><i class="fa fa-comments ml-2"></i> {{ object.get_comment_count }} </span>
+                    <span><i class="fa fa-eye ml-2"></i> {{ object.get_view_count }} </span>
+                    <span><i class="fa fa-thumbs-up ml-2"></i> {{ object.get_like_count }} </span>
+                    <span class="float-right">Posted {{ object.publish_date|timesince }} ago</span>
+                </div>
+                <hr />
+                <div>
+                    <a></a>
+                </div>
+                <hr />
+                <div>
+                    <a class="text-muted" href="{{ object.get_like_url }}">
+                    <i class="fa fa-thumbs-up fa-lg"></i> {{ object.get_like_count }}
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
 {% endblock content %}
