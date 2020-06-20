@@ -16,6 +16,14 @@ class PostCreateView(CreateView):
 
 
 class PostUpdateView(UpdateView):
+    # We need to specify the fields that we want to allow user to update
+    fields = (
+        'title',
+        'content',
+        'tumbnail',
+        'author',
+        'slug',
+    )
     model = Post
 
 
