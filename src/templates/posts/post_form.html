@@ -1,12 +1,15 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 
 {% block content %}
 <div class="container">
+    <div class='col-md-6 offser-md-3'>
     <h1>This is the {{ view_type }} view</h1>
     <form method="POST" enctype='multipart/form-data'>
         {% csrf_token %}
-        {{ form.as_p }}
+        {{ form|crispy }}
         <button type='submit' class='btn btn-primary'>{{ view_type|title }}</button>
     </form>
+    </div>
 </div
 {% endblock content %}
